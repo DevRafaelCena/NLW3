@@ -10,7 +10,7 @@ const Landing: React.FC = () => {
   return (
     <div id="page-landing">
       <div className="content-wrapper">
-        <img src={logoImg} alt="Happy" />
+        <img src={logoImg} alt="Cena Happy" />
 
         <main>
           <h1>Leve felicidade para o mundo</h1>
