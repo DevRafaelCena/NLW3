@@ -16,13 +16,13 @@ interface Orphanage{
   name: string;
 }
 
-const OrphanagesMap: React.FC = () => {
-  const [orphanages, setOrphanages] = useState([]);
-  useEffect(()=>{
-    api.get('orphanages').then(response =>{
-      setOrphanages(response.data)
+function OrphanagesMap() {
+  const [orphanages, setOrphanages] = useState<Orphanage[]>([]);
+  useEffect(() => {
+    api.get('orphanages').then(response => {
+      setOrphanages(response.data);
     })
-  },[])
+  }, []);
 
   return (
     <div id="page-map">
@@ -41,29 +41,28 @@ const OrphanagesMap: React.FC = () => {
       </aside>
 
       <Map
-        center={[-23.554108, -46.6416961]}
+        center={[-23.7513837, -46.7167123]}
         zoom={15}
         style={{ width: '100%', height: '100%' }}
       >
         <TileLayer url={`https://api.mapbox.com/styles/v1/mapbox/light-v10/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`} />
-    {orphanages.map(orphanage =>{
-      return(
-        <Marker
-        icon={mapIcon}
-        position={[orphanage.latitude,orphanage.lonetudi]}
-        >
-          <Popup closeButton={false} minWidth={240} maxWidth={240} className="map-popup" >
-         
-            Lar das crianças
-            <Link to="/orphanages/1">
-              <FiArrowRight size={20} color="#fff"/>
-            </Link>
-
-          </Popup>
-      
-      </Marker>
-      )
-    })}
+        {orphanages.map(orphanage => {
+          console.log(orphanage)
+          return ( 
+            <Marker 
+              icon={mapIcon}
+              position={[orphanage.latitude, orphanage.longitude]}
+              key={orphanage.id}
+            >
+              <Popup closeButton={false} minWidth={240} maxWidth={240} className="map-popup">
+                {orphanage.name}
+                <Link to={`/orphanages/${orphanage.id}`}>
+                  <FiArrowRight size={20} color="#FFF" />
+                </Link>
+              </Popup>
+            </Marker>
+          )
+        })}
       </Map>
 
 
